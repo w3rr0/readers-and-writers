@@ -1,10 +1,11 @@
 package readers_and_writers;
 
 public class Main {
-    int readersCount = 10;
-    int writersCount = 3;
 
     public static void main(String[] args) {
+        int readersCount = 10;
+        int writersCount = 3;
+
         if (args.length >= 2) {
             try {
                 readersCount = Integer.parseInt(args[0]);
