@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 public class Library {
     private final Lock lock = new ReentrantLock(true);
@@ -72,5 +73,16 @@ public class Library {
         } finally {
             lock.unlock();
         }
+    }
+
+    public void printStatus(String event, Thread triggeringThread) {
+        String readersInRoom = activeReaders.stream()
+            .map(Thread::getName)
+            .collect(Collectors.joining(", ", "[", "]"));
+
+        System.out.println("EVENT: " + event + "->" + triggeringThread.getName());
+        System.out.println("    IN LIBRARY (Writer): " + writerInRoom);
+        System.out.println("    IN LIBRARY (Reader: " + activeReaders.size() + "/" + MAX_READERS + "):" + readersInRoom);
+        System.out.println("    IN QUEUE (" + waitQueue.size() + ")" + queueStr);
     }
 }
