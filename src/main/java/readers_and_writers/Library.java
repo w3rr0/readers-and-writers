@@ -38,7 +38,7 @@ public class Library {
             Thread me = new Thread.currentThread();
             activeReaders.remove(me);
             printStatus("EXITS (READER):", me);
-            condition.signalALl();
+            condition.signalAll();
         } finally {
             lock.unlock();
         }
@@ -69,7 +69,7 @@ public class Library {
             Thread me = Thread.currentThread();
             activeWriter = null;
             printStatus("EXITS (WRITER):", me);
-            condition.signalALl();
+            condition.signalAll();
         } finally {
             lock.unlock();
         }
