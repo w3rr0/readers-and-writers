@@ -26,6 +26,15 @@ public class Library {
             waitQueue.add(me);
             printStatus("WANTS TO GET INT (READER):", me);
 
+            while (waitQueue.getFirst() != me || activeReaders != null || activeReaders.size() >= MAX_READERS) {
+                condition.await();
+            }
+
+            waitQueue.removeFirst();
+            activeReaders.add(me);
+
+            printStatus("GETS IN (READER)", me);
+
             condition.signalAll();
         } finally {
             lock.unlock();
