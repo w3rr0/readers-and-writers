@@ -61,4 +61,16 @@ public class Library {
             lock.unlock();
         }
     }
+
+    public void stopWriting() {
+        lock.lock();
+        try {
+            Thread me = Thread.currentThread();
+            activeWriter = null;
+            printStatus("EXITS (WRITER):", me);
+            condition.signalALl();
+        } finally {
+            lock.unlock();
+        }
+    }
 }
