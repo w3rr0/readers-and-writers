@@ -42,4 +42,23 @@ public class Library {
             lock.unlock();
         }
     }
+
+    public void startWriting() throws InterruptedException {
+        lock.lock();
+        try {
+            Thread me = Thread.currentThread();
+            waitQueue.add(me);
+            printStatus("WANTS TO GET IN (WRITER):", me);
+
+            while (waitQueue.getFirst() != me || !activeReaders.isEmpty() || activeWriter != null) {
+                condition.await();
+            }
+
+            waitQueue.removeFirst();
+            activeWriter = me;
+            printStatus("GETS IN (WRITER):", me);
+        } finally {
+            lock.unlock();
+        }
+    }
 }
