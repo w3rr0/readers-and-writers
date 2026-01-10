@@ -17,4 +17,17 @@ public class Library {
     private Thread activeWriter = null;
 
     private static final int MAX_READERS = 5;
+
+    public void startReading() throws InterruptedException {
+        lock.lock();
+        try {
+            Thread me = Thread.currentThread();
+            waitQueue.add(me);
+            printStatus("WANTS TO GET INT (READER):", me);
+
+            condition.signalAll();
+        } finally {
+            lock.unlock();
+        }
+    }
 }
