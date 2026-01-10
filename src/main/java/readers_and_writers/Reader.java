@@ -6,7 +6,7 @@ public class Reader implements Runnable {
     private final Library library;
 
     public Reader(Library library) {
-        this.library = library
+        this.library = library;
     }
 
     @Override
