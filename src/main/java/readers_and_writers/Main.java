@@ -16,7 +16,7 @@ public class Main {
             }
         } else {
             System.out.println("Too few arguments. Running with default args:");
-            System.out.println(readersCount + " readers, " + writetsCount + " writers");
+            System.out.println(readersCount + " readers, " + writersCount + " writers");
         }
 
         Library library = new Library();
