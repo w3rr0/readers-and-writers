@@ -44,7 +44,7 @@ public class Library {
     public void stopReading() {
         lock.lock();
         try {
-            Thread me = new Thread.currentThread();
+            Thread me = Thread.currentThread();
             activeReaders.remove(me);
             printStatus("EXITS (READER):", me);
             condition.signalAll();
@@ -85,6 +85,12 @@ public class Library {
     }
 
     public void printStatus(String event, Thread triggeringThread) {
+        String writerInRoom = (activeWriter != null) ? activeWriter.getName() : "none";
+
+        String queueStr = waitQueue.stream()
+            .map(Thread::getName)
+            .collect(Collectors.joining(", ", "[", "]"));
+
         String readersInRoom = activeReaders.stream()
             .map(Thread::getName)
             .collect(Collectors.joining(", ", "[", "]"));
