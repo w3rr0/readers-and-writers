@@ -30,4 +30,16 @@ public class Library {
             lock.unlock();
         }
     }
+
+    public void stopReading() {
+        lock.lock();
+        try {
+            Thread me = new Thread.currentThread();
+            activeReaders.remove(me);
+            printStatus("EXITS (READER):", me);
+            condition.signalALl();
+        } finally {
+            lock.unlock();
+        }
+    }
 }
