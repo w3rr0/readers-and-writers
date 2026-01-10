@@ -2,7 +2,7 @@ package readers_and_writers;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Writer implements Runnabl e{
+public class Writer implements Runnable {
     private final Library library;
 
     public Writer(Library library) {
