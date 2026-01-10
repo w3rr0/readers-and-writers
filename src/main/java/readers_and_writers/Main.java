@@ -20,15 +20,28 @@ public class Main {
         }
 
         Library library = new Library();
+        List<Thread> threads = new ArrayList<>();
 
         for (int i = 1; i <= writersCount; i++) {
-            Thread writerThread = new Thread(new Writer(library), "Writer-" + i);
-            writerThread.start();
+            Thread writerThread = Thread.ofVirtual()
+                .name("Writer-" + i)
+                .start(new Writer(library));
+            threads.add(writerThread);
         }
 
         for (int i = 1; i<= writersCount; i++) {
-            Thread readerThread = new Thread(new Reader(library), "Reader-" + i);
-            readerThread.start();
+            Thread readerThread = Thread.ofVirtual()
+                .name("Reader-" + i)
+                .start(new Reader(library));
+            threads.add(readerThread);
+        }
+
+        for (Thread t : threads) {
+            try {
+                t.join();
+            } catch (InterruptedException e ) {
+                e.printStackTrace();
+            }
         }
     }
 }
