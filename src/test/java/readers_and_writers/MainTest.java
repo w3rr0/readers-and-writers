@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Timeout;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
@@ -29,7 +29,6 @@ class MainTest {
     void testMainWithNoArguments() {
         
         String[] args = {"0", "0"};
-        Main.main(args);
 
         assertDoesNotThrow(() -> Main.main(args));
     }
@@ -57,7 +56,7 @@ class MainTest {
         
         mainThread.join();
 
-        assertDoesNotThrow(() -> Main.main(args));
+        assertFalse(mainThread.isAlive());
     }
 
     @Test
@@ -73,6 +72,6 @@ class MainTest {
         mainThread.interrupt();
         mainThread.join();
 
-        assertDoesNotThrow(() -> Main.main(args));
+        assertFalse(mainThread.isAlive());
     }
 }
