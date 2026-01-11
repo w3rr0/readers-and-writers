@@ -153,7 +153,7 @@ class LibraryTest {
 
         assertTrue(isWriterActive());
         assertEquals(0, getActiveReadersCount());
-        assertEquals(1, getWaitQueueSize()); // C wciąż czeka
+        assertEquals(1, getWaitQueueSize()); 
 
         library.stopWriting(); 
         Thread.sleep(100);
@@ -161,5 +161,63 @@ class LibraryTest {
         assertFalse(isWriterActive());
         assertEquals(1, getActiveReadersCount());
         assertEquals(0, getWaitQueueSize());
+    }
+
+    @Test
+    @Timeout(5)
+    void testWriterBlockedByAnotherWriter() throws InterruptedException {
+        library.startWriting();
+
+        Thread writerB = new Thread(() -> {
+            try {
+                library.startWriting();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, "Writer-B");
+        writerB.start();
+
+        Thread.sleep(100);
+
+        assertTrue(isWriterActive()); 
+        assertEquals(1, getWaitQueueSize()); 
+
+        library.stopWriting();
+        Thread.sleep(100);
+        
+        assertTrue(isWriterActive());
+        assertEquals(0, getWaitQueueSize());
+        
+        library.stopWriting();
+    }
+
+    @Test
+    @Timeout(5)
+    void testWriterBlockedByQueuePosition() throws InterruptedException {
+
+        library.startReading();
+
+        Thread writerB = new Thread(() -> {
+            try { library.startWriting(); } catch (InterruptedException e) {}
+        }, "Writer-B");
+        writerB.start();
+        Thread.sleep(50);
+
+        Thread writerC = new Thread(() -> {
+            try { library.startWriting(); } catch (InterruptedException e) {}
+        }, "Writer-C");
+        writerC.start();
+        Thread.sleep(50);
+
+        library.stopReading();
+        Thread.sleep(100);
+        
+        assertEquals(1, getWaitQueueSize()); 
+        
+        library.stopWriting(); 
+        Thread.sleep(100);
+        
+        assertEquals(0, getWaitQueueSize());
+        library.stopWriting(); 
     }
 }
