@@ -32,7 +32,7 @@ public class Main {
             threads.add(writerThread);
         }
 
-        for (int i = 1; i<= writersCount; i++) {
+        for (int i = 1; i<= readersCount; i++) {
             Thread readerThread = Thread.ofVirtual()
                 .name("Reader-" + i)
                 .start(new Reader(library));
