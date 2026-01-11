@@ -43,6 +43,7 @@ public class Main {
             try {
                 t.join();
             } catch (InterruptedException e ) {
+                Thread.currentThread().interrupt();
                 e.printStackTrace();
             }
         }
