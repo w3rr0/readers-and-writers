@@ -55,4 +55,18 @@ class MainTest {
         
         mainThread.join();
     }
+
+    @Test
+    @Timeout(5)
+    void testMainWithOneReader() throws InterruptedException {
+        Thread mainThread = new Thread(() -> {
+            Main.main(new String[]{"1", "0"});
+        });
+
+        mainThread.start();
+        Thread.sleep(500);
+
+        mainThread.interrupt();
+        mainThread.join();
+    }
 }
