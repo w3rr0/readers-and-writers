@@ -16,12 +16,12 @@ class MainTest {
     private final PrintStream originalOut = System.out;
 
     @BeforeEach
-    public void setUpStreams() {
+    void setUpStreams() {
         System.setOut(new PrintStream(outContent));
     }
 
     @AfterEach
-    public void restoreStreams() {
+    void restoreStreams() {
         System.setOut(originalOut);
     }
 
