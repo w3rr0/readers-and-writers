@@ -12,7 +12,7 @@ public class Writer implements Runnable {
     @Override
     public void run() {
         try {
-            while (true) {
+            while (true) { // NOSONAR
                 library.startWriting();
 
                 int writingTime = ThreadLocalRandom.current().nextInt(1000, 3001);
