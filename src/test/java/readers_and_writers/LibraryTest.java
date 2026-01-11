@@ -31,6 +31,17 @@ class LibraryTest {
             throw new RuntimeException(e);
         }
     }
+
+    private int getActiveReadersCount() {
+        try {
+            Field f = Library.class.getDeclaredField("activeReaders");
+            f.setAccessible(true);
+            List<?> readers = (List<?>) f.get(library);
+            return readers.size();
+        } catch (Exception e) {
+            throw new RuntimeException("Błąd refleksji: nie znaleziono pola activeReaders", e);
+        }
+    }
     
     private boolean isWriterActive() {
         try {
