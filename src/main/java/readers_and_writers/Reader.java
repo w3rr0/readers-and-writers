@@ -12,7 +12,7 @@ public class Reader implements Runnable {
     @Override
     public void run() {
         try {
-            while (true) {
+            while (true) { // NOSONAR
                 library.startReading();
 
                 int readingTime = ThreadLocalRandom.current().nextInt(1000, 3001);
