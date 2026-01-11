@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Timeout;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -92,7 +90,7 @@ class LibraryTest {
         Thread t6 = new Thread(() -> {
             try {
                 library.startReading();
-            } catch (InterruptedException e) { /* Should wait*/ }
+            } catch (InterruptedException e) { /* Should wait */ }
         });
         t6.start();
 
@@ -109,7 +107,7 @@ class LibraryTest {
         Thread reader = new Thread(() -> {
             try {
                 library.startReading();
-            } catch (InterruptedException e) { }
+            } catch (InterruptedException e) { /* Should wait */ }
         });
         reader.start();
 
