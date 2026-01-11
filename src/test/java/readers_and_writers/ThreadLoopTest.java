@@ -3,6 +3,8 @@ package readers_and_writers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 class ThreadLoopTest {
 
     @Test
@@ -17,6 +19,8 @@ class ThreadLoopTest {
 
         t.interrupt();
         t.join();
+
+        assertFalse(t.isAlive(), "Thread should stop working after interrupt");
     }
 
     @Test
@@ -31,5 +35,7 @@ class ThreadLoopTest {
 
         t.interrupt();
         t.join();
+
+        assertFalse(t.isAlive(), "Thread should stop working after interrupt");
     }
 }
