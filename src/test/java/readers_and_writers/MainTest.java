@@ -49,7 +49,7 @@ class MainTest {
         });
 
         mainThread.start();
-        Thread.sleep(500); 
+        Thread.sleep(500); // NOSONAR
 
         mainThread.interrupt();
         
@@ -64,7 +64,7 @@ class MainTest {
         });
 
         mainThread.start();
-        Thread.sleep(500);
+        Thread.sleep(500); // NOSONAR
 
         mainThread.interrupt();
         mainThread.join();

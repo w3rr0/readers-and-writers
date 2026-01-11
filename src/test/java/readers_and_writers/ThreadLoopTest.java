@@ -15,7 +15,7 @@ class ThreadLoopTest {
         Thread t = new Thread(readerTask);
 
         t.start();
-        Thread.sleep(5100); 
+        Thread.sleep(5100); // NOSONAR
 
         t.interrupt();
         t.join();
@@ -29,7 +29,7 @@ class ThreadLoopTest {
         Thread t = new Thread(writerTask);
 
         t.start();
-        Thread.sleep(6100); 
+        Thread.sleep(6100); // NOSONAR
 
         t.interrupt();
         t.join();

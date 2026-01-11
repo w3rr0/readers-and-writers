@@ -84,7 +84,7 @@ class LibraryTest {
             }).start();
         }
 
-        Thread.sleep(200);
+        Thread.sleep(200); // NOSONAR
         assertEquals(5, getActiveReadersCount());
 
         Thread t6 = new Thread(() -> {
@@ -94,7 +94,7 @@ class LibraryTest {
         });
         t6.start();
 
-        Thread.sleep(200);
+        Thread.sleep(200); // NOSONAR
         assertEquals(5, getActiveReadersCount());
         assertEquals(1, getWaitQueueSize());
     }
@@ -111,14 +111,14 @@ class LibraryTest {
         });
         reader.start();
 
-        Thread.sleep(100);
+        Thread.sleep(100); // NOSONAR
 
         assertTrue(isWriterActive());
         assertEquals(0, getActiveReadersCount());
         assertEquals(1, getWaitQueueSize());
 
         library.stopWriting();
-        Thread.sleep(100);
+        Thread.sleep(100); // NOSONAR
 
         assertFalse(isWriterActive());
         assertEquals(1, getActiveReadersCount());
@@ -135,26 +135,26 @@ class LibraryTest {
             try { library.startWriting(); } catch (InterruptedException e) {}
         }, "Writer-B");
         writerB.start();
-        Thread.sleep(100); 
+        Thread.sleep(100); // NOSONAR
 
         Thread readerC = new Thread(() -> {
             try { library.startReading(); } catch (InterruptedException e) {}
         }, "Reader-C");
         readerC.start();
-        Thread.sleep(100);
+        Thread.sleep(100); // NOSONAR
 
         assertEquals(1, getActiveReadersCount());
         assertEquals(2, getWaitQueueSize());
 
         library.stopReading();
-        Thread.sleep(100);
+        Thread.sleep(100); // NOSONAR
 
         assertTrue(isWriterActive());
         assertEquals(0, getActiveReadersCount());
         assertEquals(1, getWaitQueueSize()); 
 
         library.stopWriting(); 
-        Thread.sleep(100);
+        Thread.sleep(100); // NOSONAR
 
         assertFalse(isWriterActive());
         assertEquals(1, getActiveReadersCount());
@@ -175,13 +175,13 @@ class LibraryTest {
         }, "Writer-B");
         writerB.start();
 
-        Thread.sleep(100);
+        Thread.sleep(100); // NOSONAR
 
         assertTrue(isWriterActive()); 
         assertEquals(1, getWaitQueueSize()); 
 
         library.stopWriting();
-        Thread.sleep(100);
+        Thread.sleep(100); // NOSONAR
         
         assertTrue(isWriterActive());
         assertEquals(0, getWaitQueueSize());
@@ -199,21 +199,21 @@ class LibraryTest {
             try { library.startWriting(); } catch (InterruptedException e) {}
         }, "Writer-B");
         writerB.start();
-        Thread.sleep(50);
+        Thread.sleep(50); // NOSONAR
 
         Thread writerC = new Thread(() -> {
             try { library.startWriting(); } catch (InterruptedException e) {}
         }, "Writer-C");
         writerC.start();
-        Thread.sleep(50);
+        Thread.sleep(50); // NOSONAR
 
         library.stopReading();
-        Thread.sleep(100);
+        Thread.sleep(100); // NOSONAR
         
         assertEquals(1, getWaitQueueSize()); 
         
         library.stopWriting(); 
-        Thread.sleep(100);
+        Thread.sleep(100); // NOSONAR
         
         assertEquals(0, getWaitQueueSize());
         library.stopWriting(); 
