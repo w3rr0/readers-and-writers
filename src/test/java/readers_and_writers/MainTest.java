@@ -30,6 +30,8 @@ class MainTest {
         
         String[] args = {"0", "0"};
         Main.main(args);
+
+        assertDoesNotThrow(() -> Main.main(args));
     }
 
     @Test
@@ -54,6 +56,8 @@ class MainTest {
         mainThread.interrupt();
         
         mainThread.join();
+
+        assertDoesNotThrow(() -> Main.main(args));
     }
 
     @Test
@@ -68,5 +72,7 @@ class MainTest {
 
         mainThread.interrupt();
         mainThread.join();
+
+        assertDoesNotThrow(() -> Main.main(args));
     }
 }
