@@ -132,13 +132,13 @@ class LibraryTest {
         library.startReading(); 
 
         Thread writerB = new Thread(() -> {
-            try { library.startWriting(); } catch (InterruptedException e) {}
+            try { library.startWriting(); } catch (InterruptedException e) {/* Should wait */}
         }, "Writer-B");
         writerB.start();
         Thread.sleep(100); // NOSONAR
 
         Thread readerC = new Thread(() -> {
-            try { library.startReading(); } catch (InterruptedException e) {}
+            try { library.startReading(); } catch (InterruptedException e) {/* Should wait */}
         }, "Reader-C");
         readerC.start();
         Thread.sleep(100); // NOSONAR
@@ -196,13 +196,13 @@ class LibraryTest {
         library.startReading();
 
         Thread writerB = new Thread(() -> {
-            try { library.startWriting(); } catch (InterruptedException e) {}
+            try { library.startWriting(); } catch (InterruptedException e) {/* Should wait */}
         }, "Writer-B");
         writerB.start();
         Thread.sleep(50); // NOSONAR
 
         Thread writerC = new Thread(() -> {
-            try { library.startWriting(); } catch (InterruptedException e) {}
+            try { library.startWriting(); } catch (InterruptedException e) {/* Should wait */}
         }, "Writer-C");
         writerC.start();
         Thread.sleep(50); // NOSONAR
