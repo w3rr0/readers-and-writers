@@ -3,8 +3,6 @@ package readers_and_writers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
 class ThreadLoopTest {
 
     @Test
