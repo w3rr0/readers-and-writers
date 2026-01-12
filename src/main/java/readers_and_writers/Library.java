@@ -20,13 +20,40 @@ public class Library {
     private final Lock lock = new ReentrantLock(true);
     private final Condition condition = lock.newCondition();
 
+    /**
+     * The waiting queue for threads (both Readers and Writers) attempting to access the library.
+     * Used to maintain fair order (FIFO).
+     */
     private final LinkedList<Thread> waitQueue = new LinkedList<>();
 
+    /**
+     * List of currently active readers accessing the library.
+     */
     private final List<Thread> activeReaders = new ArrayList<>();
+
+    /**
+     * The thread reference of the current active writer, or null if no one is writing.
+     */
     private Thread activeWriter = null;
 
+    /**
+     * Number of maximum concurrent readers allowe in the library.
+     */
     private static final int MAX_READERS = 5;
 
+    /**
+     * Requests permission to start reading.
+     * <p>
+     * The calling thread is placed in the wait queue. It waits until:
+     * <ul>
+     * <li>There is no active writer.</li>
+     * <li>The calling thread is at the head of the wait queue.</li>
+     * </ul>
+     * Once these conditions are met, the thread enters the library as a reader.
+     * </p>
+     *
+     * @throws InterruptedException if the thread is interrupted while waiting in the queue.
+     */
     public void startReading() throws InterruptedException {
         lock.lock();
         try {
@@ -49,6 +76,13 @@ public class Library {
         }
     }
 
+    /**
+     * Signals that the thread has finished reading.
+     * <p>
+     * Removes the current thread from the list of active readers and notifies
+     * waiting threads (potential writers).
+     * </p>
+     */
     public void stopReading() {
         lock.lock();
         try {
@@ -61,6 +95,20 @@ public class Library {
         }
     }
 
+    /**
+     * Requests permission to start writing.
+     * <p>
+     * The calling thread is placed in the wait queue. It waits until:
+     * <ul>
+     * <li>There are no active readers.</li>
+     * <li>There is no active writer.</li>
+     * <li>The calling thread is at the head of the wait queue.</li>
+     * </ul>
+     * Writing requires exclusive access.
+     * </p>
+     *
+     * @throws InterruptedException if the thread is interrupted while waiting in the queue.
+     */
     public void startWriting() throws InterruptedException {
         lock.lock();
         try {
@@ -80,6 +128,12 @@ public class Library {
         }
     }
 
+    /**
+     * Signals that the thread has finished writing.
+     * <p>
+     * Clears the active writer status and notifies all waiting threads.
+     * </p>
+     */
     public void stopWriting() {
         lock.lock();
         try {
@@ -92,6 +146,10 @@ public class Library {
         }
     }
 
+    /**
+     * Generates a snapshot string of the current library state.
+     * Useful for logging and debugging.
+     */
     public void printStatus(String event, Thread triggeringThread) {
         String writerInRoom = (activeWriter != null) ? activeWriter.getName() : "none";
 
