@@ -44,3 +44,6 @@ sonar.sh
 
 ### javaoc ###
 /javadoc
+
+### sonarqube ###
+/sonar-qube
