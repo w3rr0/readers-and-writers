@@ -3,8 +3,24 @@ package readers_and_writers;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The entry point of the Readers and Writers simulation.
+ * <p>
+ * Parses command line arguments to determine the number of Reader and Writer threads,
+ * initializes the Library, starts the Virtual Threads, and keeps the main thread alive.
+ * </p>
+ */
 public class Main {
 
+    /**
+     * Main method to start the simulation.
+     *
+     * @param args command line arguments:
+     * <ul>
+     * <li>args[0]: Number of Readers (default 10)</li>
+     * <li>args[1]: Number of Writers (default 3)</li>
+     * </ul>
+     */
     public static void main(String[] args) {
         int readersCount = 10;
         int writersCount = 3;
