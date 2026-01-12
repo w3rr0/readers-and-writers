@@ -17,7 +17,13 @@ import java.util.stream.Collectors;
  * </p>
  */
 public class Library {
+    /**
+     * The main lock guarding access to the library state.
+     */
     private final Lock lock = new ReentrantLock(true);
+    /**
+     * Condition variable for waiting threads (readers and writers).
+     */
     private final Condition condition = lock.newCondition();
 
     /**
@@ -49,6 +55,7 @@ public class Library {
      * <li>There is no active writer.</li>
      * <li>The calling thread is at the head of the wait queue.</li>
      * </ul>
+     * <p>
      * Once these conditions are met, the thread enters the library as a reader.
      * </p>
      *
@@ -104,6 +111,7 @@ public class Library {
      * <li>There is no active writer.</li>
      * <li>The calling thread is at the head of the wait queue.</li>
      * </ul>
+     * <p>
      * Writing requires exclusive access.
      * </p>
      *
