@@ -8,6 +8,14 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
+/**
+ * The Monitor class that manages synchronization between Readers and Writers.
+ * <p>
+ * This class implements a solution to the "Readers-Writers Problem" using a FIFO wait queue.
+ * This strategy is used to prevent starvation of Writers by ensuring that
+ * requests are processed in the order of their arrival.
+ * </p>
+ */
 public class Library {
     private final Lock lock = new ReentrantLock(true);
     private final Condition condition = lock.newCondition();
