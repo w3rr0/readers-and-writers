@@ -149,6 +149,9 @@ public class Library {
     /**
      * Generates a snapshot string of the current library state.
      * Useful for logging and debugging.
+     *
+     * @param event The description of the event taking place.
+     * @param triggeringThread The thread that initiated the event.
      */
     public void printStatus(String event, Thread triggeringThread) {
         String writerInRoom = (activeWriter != null) ? activeWriter.getName() : "none";
