@@ -34,6 +34,7 @@ public class Writer implements Runnable {
      * <li>Exit the library (stopWriting).</li>
      * <li>Rest outside (sleep for 2s).</li>
      * </ol>
+     * <p>
      * The loop runs until the thread is interrupted.
      * </p>
      */

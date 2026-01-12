@@ -34,6 +34,7 @@ public class Reader implements Runnable {
      * <li>Exit the library (stopReading).</li>
      * <li>Rest outside (sleep for 1s).</li>
      * </ol>
+     * <p>
      * The loop runs until the thread is interrupted.
      * </p>
      */
