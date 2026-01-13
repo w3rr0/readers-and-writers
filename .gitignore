@@ -42,7 +42,7 @@ build/
 ### private scripts ###
 sonar.sh
 
-### javaoc ###
+### javadoc ###
 /javadoc
 
 ### sonarqube ###
